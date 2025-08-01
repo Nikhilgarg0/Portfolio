@@ -4,7 +4,29 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { motion, useScroll } from "framer-motion"
-import { Moon, Sun, Linkedin, Instagram, Download, ExternalLink, GraduationCap, Briefcase, Award, Send, Menu, X, ArrowDown, Check, Github, Code, Server, Shield, Database, Globe, Wrench } from 'lucide-react'
+import {
+  Moon,
+  Sun,
+  Linkedin,
+  Instagram,
+  Download,
+  ExternalLink,
+  GraduationCap,
+  Briefcase,
+  Award,
+  Send,
+  Menu,
+  X,
+  ArrowDown,
+  Check,
+  Github,
+  Code,
+  Server,
+  Shield,
+  Database,
+  Globe,
+  Wrench,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -27,7 +49,7 @@ const TypingAnimation = ({ text, delay = 0 }: { text: string; delay?: number }) 
           setCurrentIndex(currentIndex + 1)
         }
       },
-      delay + currentIndex * 20, // Much faster typing: 20ms per character
+      delay + currentIndex * 20,
     )
 
     return () => clearTimeout(timer)
@@ -36,7 +58,7 @@ const TypingAnimation = ({ text, delay = 0 }: { text: string; delay?: number }) 
   useEffect(() => {
     const cursorTimer = setInterval(() => {
       setShowCursor((prev) => !prev)
-    }, 400) // Faster cursor blink: 400ms (was 500ms)
+    }, 400)
 
     return () => clearInterval(cursorTimer)
   }, [])
@@ -70,7 +92,6 @@ export default function Portfolio() {
   }
 
   useEffect(() => {
-    // Add smooth transition class to html element
     document.documentElement.style.transition = "background-color 0.3s ease, color 0.3s ease"
     document.body.style.transition = "background-color 0.3s ease, color 0.3s ease"
 
@@ -87,32 +108,59 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Enhanced intersection observer with better debugging
   useEffect(() => {
     const sections = ["hero", "about", "skills", "education", "experience", "certifications", "contact"]
-    const observers = sections.map((section) => {
-      const element = document.getElementById(section === "hero" ? "" : section)
-      if (!element && section === "hero") {
-        const heroElement = document.querySelector("section")
-        if (heroElement) {
-          const observer = new IntersectionObserver(
-            ([entry]) => {
-              if (entry.isIntersecting) {
-                setActiveSection("hero")
-              }
-            },
-            { threshold: 0.5 },
-          )
-          observer.observe(heroElement)
-          return observer
+
+    // Function to determine which section is currently active based on scroll position
+    const updateActiveSection = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i])
+        if (section) {
+          const sectionTop = section.offsetTop
+          const sectionHeight = section.offsetHeight
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            setActiveSection(sections[i])
+            return
+          }
         }
-      } else if (element) {
+      }
+
+      // If we're at the very top, set hero as active
+      if (window.scrollY < 100) {
+        setActiveSection("hero")
+      }
+    }
+
+    // Initial check
+    updateActiveSection()
+
+    // Add scroll listener
+    const handleScroll = () => {
+      updateActiveSection()
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    // Also use intersection observer as backup
+    const observers = sections.map((sectionId) => {
+      const element = document.getElementById(sectionId)
+      if (element) {
         const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setActiveSection(section)
-            }
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                setActiveSection(sectionId)
+              }
+            })
           },
-          { threshold: 0.5 },
+          {
+            threshold: [0.1, 0.5, 0.9],
+            rootMargin: "-10% 0px -10% 0px",
+          },
         )
         observer.observe(element)
         return observer
@@ -121,9 +169,10 @@ export default function Portfolio() {
     })
 
     return () => {
+      window.removeEventListener("scroll", handleScroll)
       observers.forEach((observer) => observer?.disconnect())
     }
-  }, [])
+  }, [showSplash]) // Add showSplash dependency to reinitialize after splash
 
   const skillCategories = [
     {
@@ -191,15 +240,10 @@ export default function Portfolio() {
     if (isTransitioning) return
 
     setIsTransitioning(true)
-
-    // Add transition classes to body and html
     document.documentElement.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
     document.body.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
-
-    // Toggle theme
     setDarkMode(!darkMode)
 
-    // Reset transition state
     setTimeout(() => {
       setIsTransitioning(false)
     }, 500)
@@ -213,7 +257,6 @@ export default function Portfolio() {
     const formData = new FormData(form)
 
     try {
-      // Import EmailJS at the top of the file if not already imported
       const { sendEmail } = await import("../lib/emailjs")
 
       const templateParams = {
@@ -247,10 +290,14 @@ export default function Portfolio() {
   }
 
   const handleDownloadCV = () => {
-    // Convert Google Drive view link to direct download link
     const driveLink = "https://drive.google.com/uc?export=download&id=1ruZrlOETHoKAm5uevnxkbShY02Wl62TA"
     window.open(driveLink, "_blank")
   }
+
+  // Debug: Add this to see what's happening
+  useEffect(() => {
+    console.log("Active section:", activeSection)
+  }, [activeSection])
 
   return (
     <>
@@ -334,8 +381,62 @@ export default function Portfolio() {
             </div>
           </motion.div>
 
+          {/* Desktop Navigation - Fixed with better active detection */}
+          <motion.nav
+            className="hidden md:flex fixed top-1/2 right-8 transform -translate-y-1/2 z-40 flex-col space-y-3"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
+          >
+            {[{ name: "Hero", id: "hero" }, ...navItems].map((item, index) => (
+              <motion.div key={item.name} className="relative flex items-center justify-center w-4 h-4">
+                <motion.button
+                  onClick={() => {
+                    const element = document.getElementById(item.id)
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" })
+                      // Immediately set active section for better UX
+                      setActiveSection(item.id)
+                    }
+                  }}
+                  className="relative w-full h-full flex items-center justify-center group"
+                  whileHover={{ scale: 1.3 }}
+                  whileTap={{ scale: 0.9 }}
+                  title={item.name}
+                >
+                  {activeSection === item.id ? (
+                    <motion.div
+                      className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-blue-400 dark:to-indigo-400 shadow-lg"
+                      initial={{ scale: 0.5 }}
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        boxShadow: [
+                          "0 0 0 0 rgba(59, 130, 246, 0.4)",
+                          "0 0 0 8px rgba(59, 130, 246, 0)",
+                          "0 0 0 0 rgba(59, 130, 246, 0)",
+                        ],
+                      }}
+                      transition={{
+                        scale: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+                        boxShadow: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+                      }}
+                    />
+                  ) : (
+                    <motion.div
+                      className="w-2 h-2 rounded-full bg-gray-400/60 dark:bg-gray-500/60 group-hover:bg-blue-400/80 dark:group-hover:bg-blue-400/80 transition-all duration-200"
+                      whileHover={{ scale: 1.5 }}
+                    />
+                  )}
+                </motion.button>
+              </motion.div>
+            ))}
+          </motion.nav>
+
           {/* Hero Section */}
-          <section className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-300">
+          <section
+            id="hero"
+            className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-300"
+          >
             <div className="text-center max-w-4xl mx-auto">
               <motion.h1
                 className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-slate-700 dark:from-gray-100 dark:via-gray-200 dark:to-gray-300 bg-clip-text text-transparent mb-6"
@@ -436,56 +537,6 @@ export default function Portfolio() {
             </div>
           </section>
 
-          {/* Desktop Navigation */}
-          <motion.nav
-            className="hidden md:flex fixed top-1/2 right-8 transform -translate-y-1/2 z-40 flex-col space-y-3"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-          >
-            {[{ name: "Hero", id: "hero" }, ...navItems].map((item, index) => (
-              <motion.div key={item.name} className="relative flex items-center justify-center w-4 h-4">
-                <motion.button
-                  onClick={() => {
-                    if (item.id === "hero") {
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    } else {
-                      scrollToSection(item.href || `#${item.id}`)
-                    }
-                  }}
-                  className="relative w-full h-full flex items-center justify-center"
-                  whileHover={{ scale: 1.3 }}
-                  whileTap={{ scale: 0.9 }}
-                  title={item.name}
-                >
-                  {activeSection === item.id ? (
-                    <motion.div
-                      className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-gray-400 dark:to-gray-500 shadow-md backdrop-blur-sm border border-white/20 dark:border-gray-700/20"
-                      initial={{ scale: 0.5 }}
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        boxShadow: [
-                          "0 0 0 0 rgba(59, 130, 246, 0.3)",
-                          "0 0 0 6px rgba(59, 130, 246, 0)",
-                          "0 0 0 0 rgba(59, 130, 246, 0)",
-                        ],
-                      }}
-                      transition={{
-                        scale: { duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
-                        boxShadow: { duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
-                      }}
-                    />
-                  ) : (
-                    <motion.div
-                      className="w-2 h-2 rounded-full bg-gray-400/60 dark:bg-gray-600/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 hover:bg-blue-400/80 dark:hover:bg-gray-500/80 transition-all duration-200"
-                      whileHover={{ scale: 1.5 }}
-                    />
-                  )}
-                </motion.button>
-              </motion.div>
-            ))}
-          </motion.nav>
-
           {/* About Section */}
           <motion.section
             id="about"
@@ -514,33 +565,34 @@ export default function Portfolio() {
                 className="space-y-6 mb-16"
               >
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I have an immense passion and purpose in being an engineering undergraduate student in Computer Science,
-                  an interest driven by a vast fascination with how technology empowers the world and, by extension, how it
-                  could be reimagined. Programming and web development started out as passions for me, eventually expanding
-                  to become an interest in systems, networks, and what keeps it all together — security.
+                  I have an immense passion and purpose in being an engineering undergraduate student in Computer
+                  Science, an interest driven by a vast fascination with how technology empowers the world and, by
+                  extension, how it could be reimagined. Programming and web development started out as passions for me,
+                  eventually expanding to become an interest in systems, networks, and what keeps it all together —
+                  security.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I've built a solid skill set in front-end development with HTML, CSS, and JavaScript and am now working
-                  towards becoming a proficient Java Full Stack Developer. I'm learning to create strong backend frameworks
-                  with tools such as Node.js and technologies such as Spring Boot — not only how to code, but how to design
-                  solutions that scale, perform, and secure data well.
+                  I've built a solid skill set in front-end development with HTML, CSS, and JavaScript and am now
+                  working towards becoming a proficient Java Full Stack Developer. I'm learning to create strong backend
+                  frameworks with tools such as Node.js and technologies such as Spring Boot — not only how to code, but
+                  how to design solutions that scale, perform, and secure data well.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  My CCNA experience has given me hands-on experience with IP addressing, subnetting, routing protocols, and
-                  Cisco device configuration — giving me an appreciation for how digital communication actually works at a
-                  more fundamental level. This exposure has also created a keen interest in cybersecurity, ethical hacking,
-                  cloud computing, and DevOps methods — all fields where I see the future of development and defense
-                  intersecting.
+                  My CCNA experience has given me hands-on experience with IP addressing, subnetting, routing protocols,
+                  and Cisco device configuration — giving me an appreciation for how digital communication actually
+                  works at a more fundamental level. This exposure has also created a keen interest in cybersecurity,
+                  ethical hacking, cloud computing, and DevOps methods — all fields where I see the future of
+                  development and defense intersecting.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   I come to technology with the builder's mentality and hacker's spirit of inquiry — always seeking to
-                  better, streamline, or grasp the "why" of the system. Whether that is learning a new framework, digging
-                  into Linux internals, or reverse-engineering an exploit, I'm always challenging myself to explore beyond
-                  the textbook.
+                  better, streamline, or grasp the "why" of the system. Whether that is learning a new framework,
+                  digging into Linux internals, or reverse-engineering an exploit, I'm always challenging myself to
+                  explore beyond the textbook.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Most of all, I am committed to constant learning, tackling significant problems, and remaining humble but
-                  hungry in the constantly changing realm of tech.
+                  Most of all, I am committed to constant learning, tackling significant problems, and remaining humble
+                  but hungry in the constantly changing realm of tech.
                 </p>
               </motion.div>
 
@@ -553,7 +605,9 @@ export default function Portfolio() {
                 >
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700/20 dark:to-gray-600/20 rounded-2xl p-6 border border-blue-100 dark:border-gray-600/30 h-fit">
                     <h4 className="font-semibold text-blue-700 dark:text-gray-200 mb-2">Current Focus</h4>
-                    <p className="text-gray-700 dark:text-gray-300">Java Full Stack Development & Backend Technologies</p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Java Full Stack Development & Backend Technologies
+                    </p>
                   </div>
                 </motion.div>
                 <motion.div
@@ -564,7 +618,9 @@ export default function Portfolio() {
                 >
                   <div className="bg-gradient-to-r from-indigo-50 to-slate-50 dark:from-gray-600/20 dark:to-gray-700/20 rounded-2xl p-6 border border-indigo-100 dark:border-gray-600/30 h-fit">
                     <h4 className="font-semibold text-indigo-700 dark:text-gray-200 mb-2">Interests</h4>
-                    <p className="text-gray-700 dark:text-gray-300">Cybersecurity, DevOps, Cloud Platforms, REST APIs</p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Cybersecurity, DevOps, Cloud Platforms, REST APIs
+                    </p>
                   </div>
                 </motion.div>
                 <motion.div
@@ -712,7 +768,9 @@ export default function Portfolio() {
                               <GraduationCap className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                              <CardTitle className="text-xl text-gray-800 dark:text-gray-100">{edu.institution}</CardTitle>
+                              <CardTitle className="text-xl text-gray-800 dark:text-gray-100">
+                                {edu.institution}
+                              </CardTitle>
                               <CardDescription className="text-lg text-gray-600 dark:text-gray-300">
                                 {edu.degree}
                               </CardDescription>
@@ -787,8 +845,8 @@ export default function Portfolio() {
                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                       During my CCNA internship, I gained practical experience in networking concepts and Cisco device
                       configuration. I worked with routers and switches to set up and troubleshoot real and simulated
-                      network environments. The internship enhanced my understanding of core networking principles such as
-                      IP addressing, subnetting, VLAN configuration, and routing protocols like RIP and OSPF.
+                      network environments. The internship enhanced my understanding of core networking principles such
+                      as IP addressing, subnetting, VLAN configuration, and routing protocols like RIP and OSPF.
                     </p>
                   </CardContent>
                 </Card>
@@ -832,7 +890,9 @@ export default function Portfolio() {
                           </div>
                           <div>
                             <CardTitle className="text-xl text-gray-800 dark:text-gray-100">How to CSS</CardTitle>
-                            <CardDescription className="text-lg text-gray-600 dark:text-gray-300">CodeKaro</CardDescription>
+                            <CardDescription className="text-lg text-gray-600 dark:text-gray-300">
+                              CodeKaro
+                            </CardDescription>
                           </div>
                         </div>
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -883,7 +943,9 @@ export default function Portfolio() {
                             <CardTitle className="text-xl text-gray-800 dark:text-gray-100">
                               CCNA: Enterprise Networking, Security, and Automation
                             </CardTitle>
-                            <CardDescription className="text-lg text-gray-600 dark:text-gray-300">Cisco</CardDescription>
+                            <CardDescription className="text-lg text-gray-600 dark:text-gray-300">
+                              Cisco
+                            </CardDescription>
                           </div>
                         </div>
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -917,8 +979,8 @@ export default function Portfolio() {
                         </Badge>
                       </div>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Advanced networking certification covering enterprise networking, security protocols, and network
-                        automation technologies.
+                        Advanced networking certification covering enterprise networking, security protocols, and
+                        network automation technologies.
                       </p>
                     </CardContent>
                   </Card>
