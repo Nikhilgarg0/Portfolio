@@ -170,7 +170,7 @@ export default function Portfolio() {
       title: "Web Technologies",
       icon: Globe,
       color: "from-orange-500 to-amber-500",
-      skills: ["Email-API", "Axios", "Postman"],
+      skills: ["Email-API", "Axios"],
     },
     {
       title: "Programming Languages",
@@ -698,14 +698,14 @@ export default function Portfolio() {
               {
                 institution: "Holy Angels High Secondary School, Kurawar",
                 degree: "12th - MPBSE",
-                period: "2022",
+                period: "2021 - 2022",
                 grade: "Percentage: 71 / 100",
                 delay: 0.1,
               },
               {
                 institution: "Holy Angels High Secondary School, Kurawar",
                 degree: "10th - MPBSE",
-                period: "2020",
+                period: "2019 - 2020",
                 grade: "Percentage: 81 / 100",
                 delay: 0.2,
               },
@@ -1013,7 +1013,7 @@ export default function Portfolio() {
                     <Input
                       id="subject"
                       name="subject"
-                      placeholder="Project inquiry"
+                      placeholder="inquiry subject"
                       className="bg-white/50 dark:bg-gray-800/50 border border-blue-200 dark:border-gray-600 focus:border-blue-400 dark:focus:border-gray-500 transition-all duration-200 dark:text-gray-100"
                       disabled={formStatus === "sending"}
                       required
@@ -1026,7 +1026,7 @@ export default function Portfolio() {
                     <Textarea
                       id="message"
                       name="message"
-                      placeholder="Tell me about your project..."
+                      placeholder="Tell me about your query..."
                       rows={5}
                       className="bg-white/50 dark:bg-gray-800/50 border border-blue-200 dark:border-gray-600 focus:border-blue-400 dark:focus:border-gray-500 transition-all duration-200 dark:text-gray-100"
                       disabled={formStatus === "sending"}
