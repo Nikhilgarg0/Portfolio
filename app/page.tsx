@@ -356,7 +356,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <TypingAnimation text="Nikhil Garg" delay={400} />
+            <TypingAnimation text="Nikhil Garg" delay={100} />
           </motion.h1>
 
           <motion.p
