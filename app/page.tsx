@@ -176,46 +176,29 @@ export default function Portfolio() {
 
   const skillCategories = [
     {
-      title: "Frontend Development",
+      title: "Web Development",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
-      skills: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Framer Motion"],
+      skills: ["Tailwind CSS", "Framer Motion", "MERN", "Wordpress", "Firebase"],
     },
-    {
-      title: "Backend & Frameworks",
-      icon: Server,
-      color: "from-green-500 to-emerald-500",
-      skills: ["Java", "Python", "MERN", "Maven", "Jasper", "REST API"],
-    },
-    {
-      title: "Database & Storage",
-      icon: Database,
-      color: "from-purple-500 to-violet-500",
-      skills: ["MongoDB", "SQL", "Firebase"],
-    },
+    
     {
       title: "Cybersecurity & Networking",
       icon: Shield,
       color: "from-red-500 to-rose-500",
-      skills: ["Kali Linux", "CCNA", "Networking"],
-    },
-    {
-      title: "Web Technologies",
-      icon: Globe,
-      color: "from-orange-500 to-amber-500",
-      skills: ["Email-API", "Axios"],
+      skills: ["Kali Linux", "Burp Suite", "NMap", "WireShark", "PuTTY"],
     },
     {
       title: "Programming Languages",
       icon: Code,
       color: "from-indigo-500 to-blue-500",
-      skills: ["C", "C++", "Java", "Python", "JavaScript"],
+      skills: ["C++", "Java", "Python"],
     },
     {
-      title: "Tools & Utilities",
+      title: "Other Tools & Utilities",
       icon: Wrench,
       color: "from-gray-500 to-slate-500",
-      skills: ["Launch 4J", "Postman", "Maven"],
+      skills: ["Launch 4J", "Postman", "REST Api", "Git and Github"],
     },
   ]
 
