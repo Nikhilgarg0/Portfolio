@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Nikhil\'s portfolio',
   description: 'Created by Nikhil garg',
   generator: 'Nikhil Garg',
+  icons: {
+    icon: '/icon.ico',
+  },
 }
 
 export default function RootLayout({
