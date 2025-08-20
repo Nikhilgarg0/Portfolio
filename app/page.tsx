@@ -548,35 +548,15 @@ export default function Portfolio() {
                 className="space-y-6 mb-16"
               >
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I have an immense passion and purpose in being an engineering undergraduate student in Computer
-                  Science, an interest driven by a vast fascination with how technology empowers the world and, by
-                  extension, how it could be reimagined. Programming and web development started out as passions for me,
-                  eventually expanding to become an interest in systems, networks, and what keeps it all together —
-                  security.
+                  I've always been the person who needs to know how things really work. What started as a hobby tinkering with HTML and CSS quickly became an obsession. I wasn't just satisfied building a website; I wanted to build the entire engine behind it.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I've built a solid skill set in front-end development with HTML, CSS, and JavaScript and am now
-                  working towards becoming a proficient Java Full Stack Developer. I'm learning to create strong backend
-                  frameworks with tools such as Node.js and technologies such as Spring Boot — not only how to code, but
-                  how to design solutions that scale, perform, and secure data well.
+                  That drive led me to full-stack Java development, where I'm learning to architect and build complete applications using Spring Boot and Node.js. But for me, the code is only half the story. Getting my hands dirty with Cisco routers during my CCNA training was a game-changer. Suddenly, I could see the hidden infrastructure that makes the internet possible, and it sparked a new fascination with securing those systems.
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  My CCNA experience has given me hands-on experience with IP addressing, subnetting, routing protocols,
-                  and Cisco device configuration — giving me an appreciation for how digital communication actually
-                  works at a more fundamental level. This exposure has also created a keen interest in cybersecurity,
-                  ethical hacking, cloud computing, and DevOps methods — all fields where I see the future of
-                  development and defense intersecting.
+                  Now, my interests lie at the intersection of creation and defense. I'm captivated by cybersecurity, ethical hacking, and building secure cloud infrastructure. Whether I'm mastering a new framework or trying to understand a vulnerability, my goal is the same: go deeper than the surface. I believe the best way to build something is to first understand how to break it.
                 </p>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I come to technology with the builder's mentality and hacker's spirit of inquiry — always seeking to
-                  better, streamline, or grasp the "why" of the system. Whether that is learning a new framework,
-                  digging into Linux internals, or reverse-engineering an exploit, I'm always challenging myself to
-                  explore beyond the textbook.
-                </p>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Most of all, I am committed to constant learning, tackling significant problems, and remaining humble
-                  but hungry in the constantly changing realm of tech.
-                </p>
+                
               </motion.div>
 
               <div className="grid md:grid-cols-3 gap-6">
