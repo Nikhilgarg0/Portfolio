@@ -176,17 +176,17 @@ export default function Portfolio() {
 
   const skillCategories = [
     {
-      title: "Web Development",
+      title: "Web & App Development",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
-      skills: ["Tailwind CSS", "Framer Motion", "MERN", "Wordpress", "Firebase"],
+      skills: ["MERN", "React Native", " Kotlin", "Expo", "Android Studio", "Firebase"],
     },
     
     {
-      title: "Cybersecurity & Networking",
+      title: "Networking & Security",
       icon: Shield,
       color: "from-red-500 to-rose-500",
-      skills: ["Kali Linux", "Burp Suite", "NMap", "WireShark", "PuTTY"],
+      skills: ["Cisco Packet Tracer", " Kali Linux", "Wireshark", "Burp Suite", "Nmap"],
     },
     {
       title: "Programming Languages",
