@@ -2,7 +2,7 @@
 import emailjs from "@emailjs/browser"
 
 const SERVICE_ID = "service_o7gkvbu"
-const TEMPLATE_ID = "Resume_Template"
+const TEMPLATE_ID = "Resume_Template_Final"
 const PUBLIC_KEY = "IriL9iG7M4NdMiljz"
 
 export const sendEmail = async (templateParams: any) => {
