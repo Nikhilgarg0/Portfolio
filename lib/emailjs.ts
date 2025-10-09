@@ -1,7 +1,7 @@
 // EmailJS integration utility
 import emailjs from "@emailjs/browser"
 
-const SERVICE_ID = "service_ruc71qeservice_ruc71qe"
+const SERVICE_ID = "service_ruc71qe"
 const TEMPLATE_ID = "template_w54vgxv"
 const PUBLIC_KEY = "AvcZuvMZ8qoSpbjYq"
 
