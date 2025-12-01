@@ -22,10 +22,12 @@ import {
   Github,
   Code,
   Server,
+  Cloud,
   Shield,
   Database,
   Globe,
   Wrench,
+  languages,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -183,7 +185,7 @@ export default function Portfolio() {
     },
     {
       title: "Programming Languages",
-      icon: Code,
+      icon: languages,
       color: "from-indigo-500 to-blue-500",
       skills: ["C++", "Java", "Python"],
     },
