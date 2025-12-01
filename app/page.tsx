@@ -179,14 +179,7 @@ export default function Portfolio() {
       title: "Web & App Development",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
-      skills: ["MERN", "React Native", " Kotlin", "Expo", "Android Studio", "Firebase"],
-    },
-    
-    {
-      title: "Networking & Security",
-      icon: Shield,
-      color: "from-red-500 to-rose-500",
-      skills: ["Cisco Packet Tracer", " Kali Linux", "Wireshark", "Burp Suite", "Nmap"],
+      skills: ["MERN", "React Native", "Expo Framework", "Android Studio"],
     },
     {
       title: "Programming Languages",
@@ -198,7 +191,7 @@ export default function Portfolio() {
       title: "Other Tools & Utilities",
       icon: Wrench,
       color: "from-gray-500 to-slate-500",
-      skills: ["Launch 4J", "Postman", "REST Api", "Git and Github"],
+      skills: ["Git and Github", "Firebase", "Google Cloud"],
     },
   ]
 
@@ -273,7 +266,7 @@ export default function Portfolio() {
   }
 
   const handleDownloadCV = () => {
-    const driveLink = "https://drive.google.com/uc?export=download&id=1qNWQQLGNLHiEgNoRLB8wboDZFwW2k9ys"
+    const driveLink = "https://drive.google.com/uc?export=download&id=115DkRU6mSeRmJ7SZtwZeYI1caAu0auVo"
     window.open(driveLink, "_blank")
   }
 
