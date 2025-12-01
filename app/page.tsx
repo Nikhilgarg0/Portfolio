@@ -273,7 +273,7 @@ export default function Portfolio() {
   }
 
   const handleDownloadCV = () => {
-    const driveLink = "https://drive.google.com/uc?export=download&id=1qNWQQLGNLHiEgNoRLB8wboDZFwW2k9ys"
+    const driveLink = "https://drive.google.com/uc?export=download&confirm=yes&id=115DkRU6mSeRmJ7SZtwZeYI1caAu0auVo"
     window.open(driveLink, "_blank")
   }
 
