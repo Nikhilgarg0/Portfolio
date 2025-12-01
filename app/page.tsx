@@ -22,12 +22,10 @@ import {
   Github,
   Code,
   Server,
-  Cloud,
   Shield,
   Database,
   Globe,
   Wrench,
-  languages,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -181,19 +179,26 @@ export default function Portfolio() {
       title: "Web & App Development",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
-      skills: ["MERN", "React Native", "Expo", "Android Studio"],
+      skills: ["MERN", "React Native", " Kotlin", "Expo", "Android Studio", "Firebase"],
+    },
+    
+    {
+      title: "Networking & Security",
+      icon: Shield,
+      color: "from-red-500 to-rose-500",
+      skills: ["Cisco Packet Tracer", " Kali Linux", "Wireshark", "Burp Suite", "Nmap"],
     },
     {
       title: "Programming Languages",
-      icon: languages,
+      icon: Code,
       color: "from-indigo-500 to-blue-500",
       skills: ["C++", "Java", "Python"],
     },
     {
-      title: "Tools & Cloud",
-      icon: Cloud,
+      title: "Other Tools & Utilities",
+      icon: Wrench,
       color: "from-gray-500 to-slate-500",
-      skills: ["Git and Github", "Firebase", "Supabase", "Google Cloud"],
+      skills: ["Launch 4J", "Postman", "REST Api", "Git and Github"],
     },
   ]
 
@@ -268,7 +273,7 @@ export default function Portfolio() {
   }
 
   const handleDownloadCV = () => {
-    const driveLink = "https://drive.google.com/uc?export=download&confirm=yes&id=115DkRU6mSeRmJ7SZtwZeYI1caAu0auVo"
+    const driveLink = "https://drive.google.com/uc?export=download&id=1qNWQQLGNLHiEgNoRLB8wboDZFwW2k9ys"
     window.open(driveLink, "_blank")
   }
 
@@ -1136,6 +1141,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.3 }}
                 viewport={{ once: true }}
               >
+                <p className="text-gray-600 dark:text-gray-300 mb-6">© 2025 Nikhil Garg. All rights reserved.</p>
                 <div className="flex justify-center gap-4">
                   <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.9 }}>
                     <Button
